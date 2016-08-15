@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.ListenersMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.entity.Listeners" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pv" property="pv" jdbcType="INTEGER" />
+    <result column="uv" property="uv" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="rela" property="rela" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mmall.entity.Listeners" extends="BaseResultMap" >
+    <result column="orders" property="orders" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, pv, uv, create_time, rela
+  </sql>
+  <sql id="Blob_Column_List" >
+    orders
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from listeners
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from listeners
+    where rela = #{rela,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from listeners
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.entity.Listeners" >
+    insert into listeners (id, name, pv, 
+      uv, create_time, rela, 
+      orders)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pv,jdbcType=INTEGER}, 
+      #{uv,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{rela,jdbcType=VARCHAR}, 
+      #{orders,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.entity.Listeners" >
+    insert into listeners
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pv != null" >
+        pv,
+      </if>
+      <if test="uv != null" >
+        uv,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="rela != null" >
+        rela,
+      </if>
+      <if test="orders != null" >
+        orders,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pv != null" >
+        #{pv,jdbcType=INTEGER},
+      </if>
+      <if test="uv != null" >
+        #{uv,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="rela != null" >
+        #{rela,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.entity.Listeners" >
+    update listeners
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pv != null" >
+        pv = #{pv,jdbcType=INTEGER},
+      </if>
+      <if test="uv != null" >
+        uv = #{uv,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="rela != null" >
+        rela = #{rela,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mmall.entity.Listeners" >
+    update listeners
+    set name = #{name,jdbcType=VARCHAR},
+      pv = #{pv,jdbcType=INTEGER},
+      uv = #{uv,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      rela = #{rela,jdbcType=VARCHAR},
+      orders = #{orders,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.entity.Listeners" >
+    update listeners
+    set name = #{name,jdbcType=VARCHAR},
+      pv = #{pv,jdbcType=INTEGER},
+      uv = #{uv,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      rela = #{rela,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
